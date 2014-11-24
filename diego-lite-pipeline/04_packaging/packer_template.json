@@ -1,0 +1,32 @@
+{
+    "variables": {
+        "aws_access_key": "AKIAIY3EURZD22CFANQQ",
+        "aws_secret_key": "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"
+    },
+
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "access_key": "{{user `aws_access_key`}}",
+            "secret_key": "{{user `aws_secret_key`}}",
+            "region": "us-west-1",
+            "source_ami": "ami-696e652c",
+            "instance_type": "t1.micro",
+            "ssh_username": "ubuntu",
+            "ami_name": "diego-edge {{timestamp}}"
+        }
+    ],
+
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "diego-lite/diego-edge.tgz",
+            "destination": "~/diego-edge.tgz"
+        },
+        {
+            "type": "shell",
+            "script": "diego-lite/install_from_tar",
+            "execute_command": "sudo {{.Path}} ~/diego-edge.tgz"
+        }
+    ]
+}

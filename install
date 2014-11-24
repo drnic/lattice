@@ -29,6 +29,9 @@ cp -a $DIEGO_EDGE_BUILD_PATH/garden/skeleton /var/diego/garden/skeleton
 mkdir -p /var/diego/config
 cp -r $DIEGO_EDGE_BUILD_PATH/config /var/diego
 
+apt-get -y update
+apt-get -y install make
+apt-get -y install gcc
 apt-get -y install quota
 apt-get -y install linux-image-extra-$(uname -r)
 
